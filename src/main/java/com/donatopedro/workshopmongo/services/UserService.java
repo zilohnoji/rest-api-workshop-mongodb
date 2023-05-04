@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.donatopedro.workshopmongo.entities.User;
-import com.donatopedro.workshopmongo.entities.UserBan;
-import com.donatopedro.workshopmongo.repositories.UserBanRepository;
 import com.donatopedro.workshopmongo.repositories.UserRepository;
 import com.donatopedro.workshopmongo.services.exception.ObjectNotFoundException;
 
@@ -17,9 +15,6 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repo;
-
-	@Autowired
-	private UserBanRepository repoBan;
 
 	public List<User> findAll() {
 		return repo.findAll();
@@ -30,7 +25,4 @@ public class UserService {
 		return user.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
 	}
 
-	public void banUserByEmail(User user) {
-		repoBan.save(new UserBan(user));
-	}
 }
