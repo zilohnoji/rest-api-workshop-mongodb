@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,12 @@ public class UserResource {
 	public @ResponseBody ResponseEntity<User> insert(UserDTO dto) {
 		User user = service.fromDTO(dto);
 		return ResponseEntity.ok().body(service.insert(user));
+	}
+
+	@DeleteMapping(path = "/delete")
+	public @ResponseBody ResponseEntity<Void> delete(@RequestParam(name = "id") String id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
