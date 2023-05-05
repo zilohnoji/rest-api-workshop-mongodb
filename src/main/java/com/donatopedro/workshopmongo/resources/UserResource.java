@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.donatopedro.workshopmongo.dto.UserDTO;
+import com.donatopedro.workshopmongo.entities.Post;
 import com.donatopedro.workshopmongo.entities.User;
 import com.donatopedro.workshopmongo.services.UserService;
 
@@ -54,5 +55,10 @@ public class UserResource {
 		user.setId(id);
 		service.update(user);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping(path = "/posts")
+	public @ResponseBody ResponseEntity<List<Post>> findPosts(@RequestParam(name = "id") String id) {
+		return ResponseEntity.ok().body(service.findById(id).getPosts());
 	}
 }
